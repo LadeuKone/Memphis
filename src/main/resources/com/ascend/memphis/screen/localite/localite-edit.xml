@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://localiteEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="localiteDc"
+                  class="com.ascend.memphis.entity.Localite">
+            <fetchPlan extends="_base">
+                <property name="departement" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+        <collection id="departementsDc" class="com.ascend.memphis.entity.Departement">
+            <fetchPlan extends="_base"/>
+            <loader id="departementsDl">
+                <query>
+                    <![CDATA[select e from Departement e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="localiteDc">
+            <column width="500px">
+                <textField id="nameField" property="name"/>
+                <entityComboBox id="departementField" property="departement" optionsContainer="departementsDc">
+
+                </entityComboBox>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose" caption="msg://commitAndCloseBtn.caption"/>
+            <button id="closeBtn" action="windowClose" caption="msg://closeBtn.caption"/>
+        </hbox>
+    </layout>
+</window>

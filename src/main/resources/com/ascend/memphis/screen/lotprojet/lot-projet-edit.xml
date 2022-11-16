@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://lotProjetEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="lotProjetDc"
+                  class="com.ascend.memphis.entity.LotProjet">
+            <fetchPlan extends="_base">
+                <property name="typeRealisation" fetchPlan="_base"/>
+                <property name="projet" fetchPlan="_base"/>
+                <property name="detailLot" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="detailLotDc" property="detailLot"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="lotProjetDc">
+            <column width="900px">
+                <textField id="numLotField" property="numLot"/>
+                <textField id="nameField" property="name"/>
+                <entityComboBox id="typeRealisationField" property="typeRealisation"/>
+                <entityComboBox id="projetField" property="projet"/>
+                <textField id="valeurEstimeeField" property="valeurEstimee" stylename="align-right"/>
+            </column>
+        </form>
+        <groupBox id="detailLotBox" caption="msg://com.ascend.memphis.entity/LotProjet.detailLot" width="1000px">
+            <table id="detailLotTable" dataContainer="detailLotDc" width="100%" height="500px">
+                <actions>
+                    <action id="create" type="create" caption="msg://create.caption"/>
+                    <action id="edit" type="edit" caption="msg://edit.caption"/>
+                    <action id="remove" type="remove" caption="msg://remove.caption"/>
+                    <action id="importDQE" />
+                </actions>
+                <columns>
+                    <column id="numOrdre"/>
+                    <column id="codeTache"/>
+                    <column id="libelle"/>
+                    <column id="quantitatif"/>
+                    <column id="prixUnitaire"/>
+                    <column id="montant" caption="msg://montant.caption"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="detailLotTable.create"/>
+                    <button action="detailLotTable.edit"/>
+                    <button action="detailLotTable.remove"/>
+                    <fileUpload id="ImportDQE" caption="msg://ImportDQE.caption"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

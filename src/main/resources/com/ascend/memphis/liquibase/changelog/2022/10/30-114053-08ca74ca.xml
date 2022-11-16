@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Memphis">
+        <createTable tableName="ETAPE_MO">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ETAPE_MO"/>
+            </column>
+            <column name="CODE" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEPEND_DE_ID" type="UUID"/>
+            <column name="DOC_PRODUIT" type="VARCHAR(255)"/>
+            <column name="TAUX_TRAVAUX" type="DOUBLE"/>
+            <column name="TAUX_MOD" type="DOUBLE"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Memphis">
+        <createIndex indexName="IDX_ETAPE_MO_DEPEND_DE" tableName="ETAPE_MO">
+            <column name="DEPEND_DE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DEPEND_DE_ID" baseTableName="ETAPE_MO"
+                                 constraintName="FK_ETAPE_MO_ON_DEPEND_DE" referencedColumnNames="ID"
+                                 referencedTableName="ETAPE_MO"/>
+    </changeSet>
+</databaseChangeLog>

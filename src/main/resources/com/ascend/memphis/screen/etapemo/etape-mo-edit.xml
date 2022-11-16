@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://etapeMOEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="etapeMODc"
+                  class="com.ascend.memphis.entity.EtapeMO">
+            <fetchPlan extends="_base">
+                <property name="dependDe" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose"
+                caption="msg:///actions.SaveClose"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowCommit"
+                caption="msg:///actions.Save"
+                icon="SAVE"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="etapeMODc">
+            <column width="350px">
+                <textField id="codeField" property="code"/>
+                <textField id="nameField" property="name"/>
+                <entityPicker id="dependDeField" property="dependDe">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <textField id="docProduitField" property="docProduit"/>
+                <textField id="tauxTravauxField" property="tauxTravaux">
+                    <formatter>
+                        <custom bean="ui_PercentFormatter"/>
+                    </formatter>
+                </textField>
+                <textField id="tauxMODField" property="tauxMOD">
+                    <formatter>
+                        <custom bean="ui_PercentFormatter"/>
+                    </formatter>
+                </textField>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="commitBtn" action="windowCommit"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

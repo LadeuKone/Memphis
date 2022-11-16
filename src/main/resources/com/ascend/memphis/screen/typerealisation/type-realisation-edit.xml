@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://typeRealisationEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="typeRealisationDc"
+                  class="com.ascend.memphis.entity.TypeRealisation">
+            <fetchPlan extends="_base">
+                <property name="secteurProjet" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+        <collection id="secteurProjetsDc" class="com.ascend.memphis.entity.SecteurProjet">
+            <fetchPlan extends="_base">
+                <property name="typeRealisation" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="secteurProjetsDl">
+                <query>
+                    <![CDATA[select e from SecteurProjet e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="typeRealisationDc">
+            <column width="500px">
+                <textField id="nameField" property="name"/>
+                <entityComboBox id="secteurProjetField" property="secteurProjet" optionsContainer="secteurProjetsDc"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose" caption="msg://commitAndCloseBtn.caption"/>
+            <button id="closeBtn" action="windowClose" caption="msg://closeBtn.caption"/>
+        </hbox>
+    </layout>
+</window>

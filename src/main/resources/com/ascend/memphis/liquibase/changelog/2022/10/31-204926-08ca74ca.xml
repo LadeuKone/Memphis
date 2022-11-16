@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Memphis">
+        <addColumn tableName="PROJET">
+            <column name="DATE_APD" type="DATE"/>
+            <column name="FICHIER_APD" type="VARCHAR(1024)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2" author="Memphis">
+        <dropIndex indexName="IDX_ACTEUR_PROJET_PROJET" tableName="ACTEUR_PROJET"/>
+    </changeSet>
+    <changeSet id="3" author="Memphis">
+        <dropIndex indexName="IDX_ACTEUR_PROJET_UNQ" tableName="ACTEUR_PROJET_1"/>
+
+        <dropIndex indexName="IDX_ACTEUR_PROJET_1_PROJET" tableName="ACTEUR_PROJET_1"/>
+
+        <dropIndex indexName="IDX_LOT_PROJET_PROJET" tableName="LOT_PROJET"/>
+    </changeSet>
+    <changeSet id="4" author="Memphis">
+        <dropColumn columnName="PROJET_ID" tableName="ACTEUR_PROJET"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://acteurProjetEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="acteurProjetDc"
+                  class="com.ascend.memphis.entity.ActeurProjet">
+            <fetchPlan extends="_base">
+                <property name="projet" fetchPlan="_base"/>
+                <property name="acteur" fetchPlan="_base"/>
+                <property name="role" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+        <collection id="projetsDc" class="com.ascend.memphis.entity.Projet">
+            <fetchPlan extends="_base"/>
+            <loader id="projetsDl">
+                <query>
+                    <![CDATA[select e from Projet e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="acteursDc" class="com.ascend.memphis.entity.Acteur">
+            <fetchPlan extends="_base"/>
+            <loader id="acteursDl">
+                <query>
+                    <![CDATA[select e from Acteur e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="roleActeursDc" class="com.ascend.memphis.entity.RoleActeur">
+            <fetchPlan extends="_base"/>
+            <loader id="roleActeursDl">
+                <query>
+                    <![CDATA[select e from RoleActeur e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="acteurProjetDc">
+            <column width="500px">
+                <entityComboBox id="projetField" property="projet" optionsContainer="projetsDc"/>
+                <entityComboBox id="acteurField" property="acteur" optionsContainer="acteursDc"/>
+                <entityComboBox id="roleField" property="role" optionsContainer="roleActeursDc"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose" caption="msg://commitAndCloseBtn.caption"/>
+            <button id="closeBtn" action="windowClose" caption="msg://closeBtn.caption"/>
+        </hbox>
+    </layout>
+</window>

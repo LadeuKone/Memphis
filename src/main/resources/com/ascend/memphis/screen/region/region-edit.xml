@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://regionEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="regionDc"
+                  class="com.ascend.memphis.entity.Region">
+            <fetchPlan extends="_base">
+                <property name="departements" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="departementsDc" property="departements"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="regionDc">
+            <column width="500px">
+                <textField id="nameField" property="name"/>
+            </column>
+        </form>
+        <groupBox id="departementsBox" caption="msg://com.ascend.memphis.entity/Region.departements">
+            <table id="departementsTable" dataContainer="departementsDc" width="550px" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="departementsTable.create" caption="msg://button.caption"/>
+                    <button action="departementsTable.edit" caption="msg://button1.caption"/>
+                    <button action="departementsTable.remove" caption="msg://button2.caption"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose" caption="msg://commitAndCloseBtn.caption"/>
+            <button id="closeBtn" action="windowClose" caption="msg://closeBtn.caption"/>
+        </hbox>
+    </layout>
+</window>

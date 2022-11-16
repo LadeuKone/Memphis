@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://projetIniEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="projetDc"
+                  class="com.ascend.memphis.entity.Projet">
+            <fetchPlan extends="_base">
+                <property name="programme" fetchPlan="_base"/>
+                <property name="secteurProjet" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+        <collection id="programmesDc" class="com.ascend.memphis.entity.Programme">
+            <fetchPlan extends="_base"/>
+            <loader id="programmesDl">
+                <query>
+                    <![CDATA[select e from Programme e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="secteurProjetsDc" class="com.ascend.memphis.entity.SecteurProjet">
+            <fetchPlan extends="_base">
+                <property name="typeRealisation" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="secteurActivitesDl">
+                <query>
+                    <![CDATA[select e from SecteurProjet e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout spacing="true" expand="scrollBox">
+        <scrollBox id="scrollBox" spacing="true">
+            <form id="form" dataContainer="projetDc">
+                <column width="500px">
+                    <textArea id="nameField" property="name"/>
+                    <entityComboBox id="programmeField" property="programme" optionsContainer="programmesDc"/>
+                    <entityComboBox id="secteurProjetField" property="secteurProjet"
+                                    optionsContainer="secteurProjetsDc"/>
+                    <textArea id="commentaireField" property="commentaire"/>
+                    <comboBox id="statutProjetField" property="statutProjet" editable="false"/>
+                </column>
+                <column width="150px">
+                    <dateField id="datePrevisionnelleAPSField" property="datePrevisionnelleAPS"/>
+                    <dateField id="datePrevisionnelleAPDField" property="datePrevisionnelleAPD"/>
+                    <dateField id="datePrevisionnelleAOField" property="datePrevisionnelleAO"/>
+                    <dateField id="datePrevisionnelleDemarrageField" property="datePrevisionnelleDemarrage"/>
+                    <dateField id="datePrevisionnelleFinField" property="datePrevisionnelleFin"/>
+                </column>
+            </form>
+        </scrollBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose" caption="msg://commitAndCloseBtn.caption"/>
+            <button id="closeBtn" action="windowClose" caption="msg://closeBtn.caption"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://localiteBrowse.caption"
+        focusComponent="localitesTable">
+    <data readOnly="true">
+        <collection id="localitesDc"
+                    class="com.ascend.memphis.entity.Localite">
+            <fetchPlan extends="_base">
+                <property name="departement" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="localitesDl">
+                <query>
+                    <![CDATA[select e from Localite e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="departementsDc" class="com.ascend.memphis.entity.Departement">
+            <fetchPlan extends="_base"/>
+            <loader id="departementsDl">
+                <query>
+                    <![CDATA[select e from Departement e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="localitesTable" spacing="true">
+        <filter id="filter"
+                dataLoader="localitesDl" caption="msg://filter.caption">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="localitesTable"
+                    width="100%"
+                    dataContainer="localitesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="departement"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="localitesTable.create" caption="msg://createBtn.caption"/>
+                <button id="editBtn" action="localitesTable.edit" caption="msg://editBtn.caption"/>
+                <button id="removeBtn" action="localitesTable.remove" caption="msg://removeBtn.caption"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

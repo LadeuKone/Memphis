@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Memphis">
+        <createTable tableName="PARAMETRE_DEFAUT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PARAMETRE_DEFAUT"/>
+            </column>
+            <column name="DATE_PARAMETRE" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CODE_ENTREPRISE" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NOM_SIGNATAIRE" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRENOMS_SIGNATAIRE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_DECOMPTE_DETAIL" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PONDERATION_TECHNIQUE" type="DOUBLE"/>
+            <column name="PONDERATION_FINANCIERE" type="DOUBLE"/>
+            <column name="DELAI_REMISE_OFFRE" type="INT"/>
+            <column name="DELAI_ANO" type="INT"/>
+            <column name="DELAI_PUBLICATION" type="INT"/>
+            <column name="DELAI_ATTRIBUTION" type="INT"/>
+            <column name="NBRE_CANDIDAT_RESTREINT" type="INT"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Memphis">
+        <createIndex indexName="IDX_PARAMETRE_DEFAUT_UNQ" tableName="PARAMETRE_DEFAUT" unique="true">
+            <column name="DATE_PARAMETRE"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

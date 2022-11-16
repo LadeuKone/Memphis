@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Memphis">
+        <createTable tableName="ACTEUR_PROJET">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ACTEUR_PROJET"/>
+            </column>
+            <column name="NAME" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REPRESENTANT" type="VARCHAR(100)"/>
+            <column name="FONCTION_REPRESENTANT" type="VARCHAR(60)"/>
+            <column name="ADRESSE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TELEPHONE" type="VARCHAR(255)"/>
+            <column name="EMAIL" type="VARCHAR(255)"/>
+            <column name="LOCALISATION" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Memphis">
+        <createTable tableName="SECTEUR_ACTIVITE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SECTEUR_ACTIVITE"/>
+            </column>
+            <column name="CODE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="Memphis">
+        <createTable tableName="UNITE_OEUVRE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_UNITE_OEUVRE"/>
+            </column>
+            <column name="CODE" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="Memphis">
+        <createIndex indexName="IDX_ACTEUR_PROJET_UNQ" tableName="ACTEUR_PROJET" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="5" author="Memphis">
+        <createIndex indexName="IDX_SECTEUR_ACTIVITE_UNQ" tableName="SECTEUR_ACTIVITE" unique="true">
+            <column name="CODE"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="6" author="Memphis">
+        <createIndex indexName="IDX_SECTEUR_ACTIVITE_UNQ_1" tableName="SECTEUR_ACTIVITE" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="7" author="Memphis">
+        <createIndex indexName="IDX_UNITE_OEUVRE_UNQ" tableName="UNITE_OEUVRE" unique="true">
+            <column name="CODE"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="8" author="Memphis">
+        <createIndex indexName="IDX_UNITE_OEUVRE_UNQ_1" tableName="UNITE_OEUVRE" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

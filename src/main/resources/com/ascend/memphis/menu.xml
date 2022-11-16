@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/ui/menu">
+
+    <menu id="application" caption="msg://com.ascend.memphis/menu.application" insertBefore="administration">
+        <menu id="params" caption="msg://com.ascend.memphis/menu_config.params">
+            <menu id="genParams" caption="msg://com.ascend.memphis/menu_config.genParams">
+                <item screen="User.browse" caption="msg://com.ascend.memphis.screen.user/UserBrowse.caption"/>
+                <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
+                <item screen="Region.browse" caption="msg://com.ascend.memphis.screen.region/regionBrowse.menu"/>
+                <item screen="Departement.browse"
+                      caption="msg://com.ascend.memphis.screen.departement/departementBrowse.menu"/>
+                <item screen="Localite.browse" caption="msg://com.ascend.memphis.screen.localite/localiteBrowse.menu"/>
+                <item screen="Pays.browse" caption="msg://com.ascend.memphis.screen.pays/paysBrowse.menu"/>
+                <item screen="ParametreDefaut.browse"
+                      caption="msg://com.ascend.memphis.screen.parametredefaut/parametreDefautBrowse.menu"/>
+            </menu>
+            <menu id="projetParam" caption="msg://com.ascend.memphis/menu_config.projetParam">
+                <item screen="Acteur.browse" caption="msg://com.ascend.memphis.screen.acteur/acteurBrowse.menu"/>
+                <item screen="SecteurActivite.browse"
+                      caption="msg://com.ascend.memphis.screen.secteuractivite/secteurActiviteBrowse.menu"/>
+                <item screen="TypeRealisation.browse"
+                      caption="msg://com.ascend.memphis.screen.typerealisation/typeRealisationBrowse.menu"/>
+                <item screen="UniteOeuvre.browse"
+                      caption="msg://com.ascend.memphis.screen.uniteoeuvre/uniteOeuvreBrowse.menu"/>
+                <item screen="EtapeMO.browse" caption="msg://com.ascend.memphis.screen.etapemo/etapeMOBrowse.menu"/>
+                <item screen="SecteurProjet.browse"
+                      caption="msg://com.ascend.memphis.screen.secteurprojet/secteurProjetBrowse.menu"/>
+                <item screen="RoleActeur.browse"
+                      caption="msg://com.ascend.memphis.screen.roleacteur/roleActeurBrowse.menu"/>
+            </menu>
+        </menu>
+        <menu id="projectMan" caption="msg://com.ascend.memphis/menu_config.projectMan">
+            <item screen="Programme.browse" caption="msg://com.ascend.memphis.screen.programme/programmeBrowse.menu"/>
+            <item screen="Projet_ini.browse" caption="msg://com.ascend.memphis.screen.projet/projetIniBrowse.menu"/>
+            <item screen="Projet_aps.browse" caption="msg://com.ascend.memphis.screen.projet/projetApsBrowse.menu"/>
+            <item screen="Projet_apd.browse" caption="msg://com.ascend.memphis.screen.projet/projetApdBrowse.menu"/>
+        </menu>
+        <menu id="bidMan" caption="msg://com.ascend.memphis/menu_config.bidMan"/>
+        <menu id="marche" caption="msg://com.ascend.memphis/menu_config.marche"/>
+        <menu id="adminContrat" caption="msg://com.ascend.memphis/menu_config.suiviContrat"/>
+        <menu id="suiviTvx" caption="msg://com.ascend.memphis/menu_config.suiviTvx"/>
+        <menu id="engMan" caption="msg://com.ascend.memphis/menu_config.engMan"/>
+    </menu>
+
+</menu-config>

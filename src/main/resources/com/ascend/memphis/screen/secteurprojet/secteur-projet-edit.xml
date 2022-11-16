@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://secteurProjetEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="secteurProjetDc"
+                  class="com.ascend.memphis.entity.SecteurProjet">
+            <fetchPlan extends="_base">
+                <property name="typeRealisation" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="typeRealisationDc" property="typeRealisation"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose"
+                caption="msg:///actions.SaveClose"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="secteurProjetDc">
+            <column width="500px">
+                <textField id="nameField" property="name"/>
+            </column>
+        </form>
+        <groupBox id="typeRealisationBox" caption="msg://com.ascend.memphis.entity/SecteurProjet.typeRealisation" width="700px">
+            <table id="typeRealisationTable" dataContainer="typeRealisationDc" width="100%" height="400px">
+                <actions>
+                    <action id="create" type="create" caption="msg://create.caption"/>
+                    <action id="edit" type="edit" caption="msg://edit.caption"/>
+                    <action id="remove" type="remove" caption="msg://remove.caption"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="typeRealisationTable.create"/>
+                    <button action="typeRealisationTable.edit"/>
+                    <button action="typeRealisationTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose" caption="msg://commitAndCloseBtn.caption"/>
+            <button id="closeBtn" action="windowClose" caption="msg://closeBtn.caption"/>
+        </hbox>
+    </layout>
+</window>

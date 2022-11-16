@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Memphis">
+        <createTable tableName="DEPARTEMENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DEPARTEMENT"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REGION_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Memphis">
+        <createTable tableName="LOCALITE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOCALITE"/>
+            </column>
+            <column name="NAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEPARTEMENT_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="Memphis">
+        <createTable tableName="PAYS">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PAYS"/>
+            </column>
+            <column name="CODE" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="Memphis">
+        <createTable tableName="REGION">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_REGION"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="Memphis">
+        <createIndex indexName="IDX_DEPARTEMENT_REGION" tableName="DEPARTEMENT">
+            <column name="REGION_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="REGION_ID" baseTableName="DEPARTEMENT"
+                                 constraintName="FK_DEPARTEMENT_ON_REGION" referencedColumnNames="ID"
+                                 referencedTableName="REGION"/>
+    </changeSet>
+    <changeSet id="6" author="Memphis">
+        <createIndex indexName="IDX_DEPARTEMENT_UNQ" tableName="DEPARTEMENT" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="7" author="Memphis">
+        <createIndex indexName="IDX_LOCALITE_DEPARTEMENT" tableName="LOCALITE">
+            <column name="DEPARTEMENT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DEPARTEMENT_ID" baseTableName="LOCALITE"
+                                 constraintName="FK_LOCALITE_ON_DEPARTEMENT" referencedColumnNames="ID"
+                                 referencedTableName="DEPARTEMENT"/>
+    </changeSet>
+    <changeSet id="8" author="Memphis">
+        <createIndex indexName="IDX_LOCALITE_UNQ" tableName="LOCALITE" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="9" author="Memphis">
+        <createIndex indexName="IDX_PAYS_UNQ" tableName="PAYS" unique="true">
+            <column name="CODE"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="10" author="Memphis">
+        <createIndex indexName="IDX_PAYS_UNQ_1" tableName="PAYS" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="11" author="Memphis">
+        <createIndex indexName="IDX_REGION_UNQ" tableName="REGION" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

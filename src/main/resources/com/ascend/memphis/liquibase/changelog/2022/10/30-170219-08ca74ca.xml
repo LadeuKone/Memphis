@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Memphis">
+        <createTable tableName="LOT_PROJET">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOT_PROJET"/>
+            </column>
+            <column name="NUM_LOT" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE_REALISATION_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PROJET_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Memphis">
+        <createTable tableName="PROGRAMME">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROGRAMME"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BUDGET" type="DECIMAL(19)"/>
+            <column name="DATE_DEMARRAGE" type="DATE"/>
+            <column name="DATE_FIN" type="DATE"/>
+            <column name="REALISE_EN_COURS" type="DECIMAL(19)"/>
+            <column name="TOTAL_REALISE" type="DECIMAL(19)"/>
+            <column name="REALISE_TERMINE" type="DECIMAL(19)"/>
+            <column name="OBSERVATION" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="Memphis">
+        <createTable tableName="PROJET">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PROJET"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PROGRAMME_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SECTEUR_PROJET_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COMMENTAIRE" type="VARCHAR(300)"/>
+            <column name="DATE_PREVISIONNELLE_APS" type="DATE"/>
+            <column name="DATE_PREVISIONNELLE_APD" type="DATE"/>
+            <column name="DATE_PREVISIONNELLE_AO" type="DATE"/>
+            <column name="DATE_PREVISIONNELLE_DEMARRAGE" type="DATE"/>
+            <column name="DATE_PREVISIONNELLE_FIN" type="DATE"/>
+            <column name="DATE_APS" type="DATE"/>
+            <column name="FICHIER_APS" type="VARCHAR(1024)"/>
+            <column name="MONTANT_ESTIME" type="DECIMAL(19)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="Memphis">
+        <createTable tableName="SECTEUR_PROJET">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SECTEUR_PROJET"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="Memphis">
+        <createTable tableName="TYPE_REALISATION">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TYPE_REALISATION"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SECTEUR_PROJET_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="Memphis">
+        <addColumn tableName="ACTEUR_PROJET">
+            <column name="PROJET_ID" type="UUID"/>
+        </addColumn>
+
+        <addNotNullConstraint columnDataType="UUID" columnName="PROJET_ID" tableName="ACTEUR_PROJET"/>
+    </changeSet>
+    <changeSet id="7" author="Memphis">
+        <createIndex indexName="IDX_ACTEUR_PROJET_PROJET" tableName="ACTEUR_PROJET">
+            <column name="PROJET_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PROJET_ID" baseTableName="ACTEUR_PROJET"
+                                 constraintName="FK_ACTEUR_PROJET_ON_PROJET" referencedColumnNames="ID"
+                                 referencedTableName="PROJET"/>
+    </changeSet>
+    <changeSet id="8" author="Memphis">
+        <createIndex indexName="IDX_LOTPROJET_TYPEREALISATION" tableName="LOT_PROJET">
+            <column name="TYPE_REALISATION_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TYPE_REALISATION_ID" baseTableName="LOT_PROJET"
+                                 constraintName="FK_LOTPROJET_ON_TYPEREALISATIO" referencedColumnNames="ID"
+                                 referencedTableName="TYPE_REALISATION"/>
+    </changeSet>
+    <changeSet id="9" author="Memphis">
+        <createIndex indexName="IDX_LOT_PROJET_PROJET" tableName="LOT_PROJET">
+            <column name="PROJET_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PROJET_ID" baseTableName="LOT_PROJET"
+                                 constraintName="FK_LOT_PROJET_ON_PROJET" referencedColumnNames="ID"
+                                 referencedTableName="PROJET"/>
+    </changeSet>
+    <changeSet id="10" author="Memphis">
+        <createIndex indexName="IDX_LOT_PROJET_UNQ" tableName="LOT_PROJET" unique="true">
+            <column name="NUM_LOT"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="11" author="Memphis">
+        <createIndex indexName="IDX_LOT_PROJET_UNQ_1" tableName="LOT_PROJET" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="12" author="Memphis">
+        <createIndex indexName="IDX_PROGRAMME_UNQ" tableName="PROGRAMME" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="13" author="Memphis">
+        <createIndex indexName="IDX_PROJET_PROGRAMME" tableName="PROJET">
+            <column name="PROGRAMME_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PROGRAMME_ID" baseTableName="PROJET"
+                                 constraintName="FK_PROJET_ON_PROGRAMME" referencedColumnNames="ID"
+                                 referencedTableName="PROGRAMME"/>
+    </changeSet>
+    <changeSet id="14" author="Memphis">
+        <createIndex indexName="IDX_PROJET_SECTEUR_PROJET" tableName="PROJET">
+            <column name="SECTEUR_PROJET_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SECTEUR_PROJET_ID" baseTableName="PROJET"
+                                 constraintName="FK_PROJET_ON_SECTEUR_PROJET" referencedColumnNames="ID"
+                                 referencedTableName="SECTEUR_PROJET"/>
+    </changeSet>
+    <changeSet id="15" author="Memphis">
+        <createIndex indexName="IDX_SECTEUR_PROJET_UNQ" tableName="SECTEUR_PROJET" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="16" author="Memphis">
+        <createIndex indexName="IDX_TYPEREALISAT_SECTEURPROJE" tableName="TYPE_REALISATION">
+            <column name="SECTEUR_PROJET_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="SECTEUR_PROJET_ID" baseTableName="TYPE_REALISATION"
+                                 constraintName="FK_TYPEREALISA_ON_SECTEURPROJ" referencedColumnNames="ID"
+                                 referencedTableName="SECTEUR_PROJET"/>
+    </changeSet>
+</databaseChangeLog>

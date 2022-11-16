@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://acteurEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="acteurDc"
+                  class="com.ascend.memphis.entity.Acteur">
+            <fetchPlan extends="_base"/>
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="acteurDc">
+            <column width="500px">
+                <textField id="nameField" property="name"/>
+                <textField id="representantField" property="representant"/>
+                <textField id="fonctionRepresentantField" property="fonctionRepresentant"/>
+                <textField id="adresseField" property="adresse"/>
+                <textField id="telephoneField" property="telephone"/>
+                <textField id="emailField" property="email"/>
+                <textArea id="localisationField" property="localisation"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://projetApdEdit.caption">
+    <data>
+        <instance id="projetDc"
+                  class="com.ascend.memphis.entity.Projet">
+            <fetchPlan extends="_base">
+                <property name="programme" fetchPlan="_base"/>
+                <property name="secteurProjet" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="acteursDc" property="acteurs"/>
+            <collection id="lotsDc" property="lots"/>
+        </instance>
+        <collection id="programmesDc" class="com.ascend.memphis.entity.Programme">
+            <fetchPlan extends="_base"/>
+            <loader id="programmesDl">
+                <query>
+                    <![CDATA[select e from Programme e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="secteurProjetsDc" class="com.ascend.memphis.entity.SecteurProjet">
+            <fetchPlan extends="_base">
+                <property name="typeRealisation" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="secteurProjetsDl">
+                <query>
+                    <![CDATA[select e from SecteurProjet e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout spacing="true" expand="scrollBox">
+        <scrollBox id="scrollBox" spacing="true" height="AUTO">
+            <hbox id="projetCaracteristique" caption="msg://projetCaracteristique.caption">
+
+                <form id="form" dataContainer="projetDc" align="MIDDLE_LEFT">
+                    <column width="500px">
+                        <textArea id="nameField" property="name" height="60px" align="MIDDLE_LEFT"/>
+                        <textArea id="commentaireField" property="commentaire" height="60px" align="MIDDLE_LEFT"/>
+                        <dateField id="dateAPSField" property="dateAPS" align="MIDDLE_LEFT"/>
+                        <dateField id="dateAPDField" property="dateAPD" align="MIDDLE_LEFT"/>
+                        <comboBox id="statutProjetField" property="statutProjet" editable="false" align="MIDDLE_LEFT"/>
+                    </column>
+                    <column width="400">
+                        <entityComboBox id="secteurProjetField" property="secteurProjet"
+                                        optionsContainer="secteurProjetsDc" align="MIDDLE_LEFT"/>
+                        <entityComboBox id="programmeField" property="programme" optionsContainer="programmesDc"
+                                        align="MIDDLE_LEFT"/>
+                        <fileStorageUpload id="fichierAPSField" property="fichierAPS" align="MIDDLE_LEFT"/>
+                        <fileStorageUpload id="fichierAPDField" property="fichierAPD" align="MIDDLE_LEFT"/>
+
+                    </column>
+
+
+                </form>
+            </hbox>
+            <hbox id="projetOrganisation" width="100%" height="AUTO" caption="msg://hbox.caption">
+                <groupBox width="1115px">
+                    <tabSheet height="100%" width="100%">
+                        <tab caption="msg://tab_1.caption" id="tabActeur" spacing="true">
+
+                            <groupBox id="acteursBox" caption="msg://com.ascend.memphis.entity/Region.departements" width="100%">
+                                <table id="acteursTable" dataContainer="acteursDc" width="100%" height="200px">
+                                    <actions>
+                                        <action id="create" type="create">
+                                            <properties>
+                                                <property name="screenId" value="ActeurProjet.edit"/>
+
+                                            </properties>
+                                        </action>
+                                        <action id="edit" type="edit">
+                                            <properties>
+                                                <property name="screenId" value="ActeurProjet.edit"/>
+                                            </properties>
+                                        </action>
+                                        <action id="remove" type="remove"/>
+                                    </actions>
+                                    <columns>
+                                        <column id="acteur" caption="msg://acteur.caption"/>
+                                        <column id="role" caption="msg://role.caption"/>
+                                    </columns>
+                                    <buttonsPanel>
+                                        <button action="acteursTable.create" caption="msg://button.caption" id="createButton"/>
+                                        <button action="acteursTable.edit" caption="msg://editButton.caption" id="editButton"/>
+                                        <button action="acteursTable.remove" caption="msg://button2.caption" id="removeButton"/>
+
+                                    </buttonsPanel>
+                                </table>
+                            </groupBox>
+                        </tab>
+                        <tab caption="msg://tabLot.caption" id="tabLot" spacing="true">
+                            <groupBox id="lotssBox" caption="msg://com.ascend.memphis.entity/Region.departements" width="100%">
+                                <table id="lotsTable" dataContainer="lotsDc" width="100%"
+                                       height="200px" rowHeaderMode="ICON">
+                                    <actions>
+                                        <action id="create" type="create"></action>
+                                        <action id="edit" type="edit"/>
+                                        <action id="remove" type="remove"></action>
+                                        <action id="detailLot" type="edit">
+                                            <properties>
+                                                <property name="screenId" value="DetailLot.edit"/>
+                                            </properties>
+                                        </action>
+                                    </actions>
+                                    <columns>
+                                        <column id="numLot"/>
+                                        <column id="name"/>
+                                        <column id="typeRealisation"/>
+                                        <column id="valeurEstimee"/>
+                                    </columns>
+                                    <buttonsPanel>
+                                        <button action="lotsTable.create" caption="msg://button.caption" id="createLotBtn"/>
+                                        <button action="lotsTable.edit" caption="msg://editButton.caption" id="editLotBtn"/>
+                                        <button action="lotsTable.remove" caption="msg://button2.caption" id="removeLotBtn"/>
+
+                                    </buttonsPanel>
+                                </table>
+                            </groupBox>
+                        </tab>
+                    </tabSheet>
+                </groupBox>
+
+            </hbox>
+
+
+
+        </scrollBox>
+
+        <hbox id="editActions" spacing="true" align="BOTTOM_CENTER" >
+            <button id="commitAndCloseBtn" action="windowCommitAndClose" caption="msg://commitAndCloseBtn1.caption"/>
+            <button id="closeBtn" action="windowClose" caption="msg://closeBtn.caption"/>
+        </hbox>
+    </layout>
+</window>

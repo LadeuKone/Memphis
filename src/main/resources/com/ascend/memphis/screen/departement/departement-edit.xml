@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://departementEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="departementDc"
+                  class="com.ascend.memphis.entity.Departement">
+            <fetchPlan extends="_base">
+                <property name="region" fetchPlan="_base"/>
+                <property name="localites" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="localitesDc" property="localites"/>
+        </instance>
+        <collection id="regionsDc" class="com.ascend.memphis.entity.Region">
+            <fetchPlan extends="_base"/>
+            <loader id="regionsDl">
+                <query>
+                    <![CDATA[select e from Region e
+                    order by e.name asc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="departementDc">
+            <column width="500px">
+                <textField id="nameField" property="name"/>
+                <entityComboBox id="regionField" property="region" optionsContainer="regionsDc"/>
+            </column>
+        </form>
+        <groupBox id="localitesBox" caption="msg://com.ascend.memphis.entity/Departement.localites">
+            <table id="localitesTable" dataContainer="localitesDc" width="550" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="localitesTable.create" caption="msg://button.caption"/>
+                    <button action="localitesTable.edit" caption="msg://button1.caption"/>
+                    <button action="localitesTable.remove" caption="msg://button2.caption"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose" caption="msg://commitAndCloseBtn.caption"/>
+            <button id="closeBtn" action="windowClose" caption="msg://closeBtn.caption"/>
+        </hbox>
+    </layout>
+</window>
